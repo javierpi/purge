@@ -1,7 +1,6 @@
 {% extends "purge/header.html" %}
 {% load static %}
 
-
 {% block content %}
 
 
@@ -43,6 +42,9 @@
                     <th>URL Count</th>
                     <th>Next Purge</th>
                     <th>Future Purge</th>
+                    <th>Total Asked</th>
+                    <th>Total Purged</th>
+                    <th>Reduction %</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -58,6 +60,13 @@
                       <td>{{ group.urlcount }}</td>
                       <td>{{ group.next_ask }}</td>
                       <td>{{ group.future_ask }}</td>
+                      <td>{{ group.total_asked.total_asked }}</td>
+                      <td>{{ group.total_purged.total_purged }}</td>
+                      <td>{{ group.reduction_percent|floatformat:2 }} %</td>
+                      
+
+                      
+                      
                       
   	                </tr>
       		      {% endfor %}
@@ -65,7 +74,7 @@
                 <tfooter>
                   <tr>
                       <th colspan="8">Total</th>
-                      <th colspan="2">{{ object_list|length }} &nbsp;Referers</th>
+                      <th colspan="4">{{ object_list|length }} &nbsp;Referers</th>
                   </tr>
                 </tfooter>
       		    </table>

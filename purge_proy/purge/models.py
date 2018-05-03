@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.db.models import Sum
 
 
 class PurgeProyect(models.Model):
@@ -21,6 +22,21 @@ class PurgeProyect(models.Model):
 
     def future_ask(self):
         return ToPurge.objects.filter(proyect=self.id).filter(future_ask__gt=0).count()
+
+    def total_asked(self):
+        return ToPurge.objects.filter(proyect=self.id).aggregate(total_asked=Sum('total_asked'))
+
+    def total_purged(self):
+        return ToPurge.objects.filter(proyect=self.id).aggregate(total_purged=Sum('total_purged'))
+
+    def reduction_percent(self):
+        pur = ToPurge.objects.filter(proyect=self.id).aggregate(total_purged=Sum('total_purged'))
+        asked = ToPurge.objects.filter(proyect=self.id).aggregate(total_asked=Sum('total_asked'))
+        if pur['total_purged'] and asked['total_asked']:
+            rat = (1 - (float(float(pur['total_purged']) / float(asked['total_asked'])))) * 100
+        else:
+            rat = 0.00
+        return rat
 
     class Meta:
         verbose_name_plural = 'Purge Proyects'
