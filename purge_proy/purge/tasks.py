@@ -25,7 +25,6 @@ def purge_():
             exclude_url = str(project.exclude_url).split(' ')
 
             try:
-                print("si")
                 clean_url(project, server, protocolo, purge_method, delta_time, generate_new_cache, exclude_url)
             except Exception:
                 print('error')
