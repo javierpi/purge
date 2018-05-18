@@ -49,7 +49,7 @@ class PurgeProyect(models.Model):
 
 class ToPurge(models.Model):
     proyect = models.ForeignKey(PurgeProyect, on_delete=models.CASCADE, blank=False, null=False)
-    url = models.CharField(max_length=120, unique=False)
+    url = models.CharField(max_length=200, unique=False)
     created_at = models.DateTimeField(
         'created at',
         help_text="Please use the following format: <em>YYYY-MM-DD</em>.",

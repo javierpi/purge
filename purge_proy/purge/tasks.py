@@ -26,6 +26,7 @@ def purge_():
 
             try:
                 clean_url(project, server, protocolo, purge_method, delta_time, generate_new_cache, exclude_url)
+                print('Purging..')
             except Exception:
                 print('error')
                 # task_annotate('purge: Error conecting to ' + referer, 'ERROR', PurgeProyect, project.id)
@@ -42,7 +43,7 @@ def clean_url(project, server, protocolo, purge_method, delta_time, generate_new
     # Deleting cache
     for purge in purges_clean:
         url = protocolo + server + str(purge) + purge_method
-        # print "Purging: ", url
+        print "Purging: ", url
         requests.get(url)
 
         # Generate cache
