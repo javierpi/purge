@@ -17,23 +17,23 @@ def purge_():
     if settings.TASK_PURGE:
         projects = PurgeProyect.objects.all()
         for project in projects:
-            server = project.server
+            servers = project.server
             protocolo = project.protocolo
             purge_method = project.purge_method
             delta_time = project.delta_time
-            generate_new_cache = project.generate_new_cache
             exclude_url = str(project.exclude_url).split(' ')
 
             try:
-                clean_url(project, server, protocolo, purge_method, delta_time, generate_new_cache, exclude_url)
-                print('Purging..')
-            except Exception:
+               clean_url(project, servers, protocolo, purge_method, delta_time, exclude_url)
+                
+            except Exception as e:
+                print e
                 print('error')
                 # task_annotate('purge: Error conecting to ' + referer, 'ERROR', PurgeProyect, project.id)
             # clean_url.apply_async((project, server, protocolo, purge_method, delta_time, generate_new_cache, exclude_url), queue='purge')
 
 
-def clean_url(project, server, protocolo, purge_method, delta_time, generate_new_cache, exclude_url):
+def clean_url(project, servers, protocolo, purge_method, delta_time, exclude_url):
 
     # created_time = timezone.now() - timezone.timedelta(minutes=delta_time)
     purges_clean = ToPurge.objects.\
@@ -42,16 +42,12 @@ def clean_url(project, server, protocolo, purge_method, delta_time, generate_new
 
     # Deleting cache
     for purge in purges_clean:
-        url = protocolo + server + str(purge) + purge_method
-        print "Purging: ", url
-        requests.get(url)
-
-        # Generate cache
-        if generate_new_cache:
-            url = protocolo + server + str(purge)
-            print "Generate new Cache: ", url
+        aservers = str(servers).split(' ')
+        for server in aservers:
+            url = protocolo + server + str(purge) + purge_method
+            print('Purging..', str(server), url)
             requests.get(url)
-
+        
         purge.total_purged = int(purge.total_purged) + 1
         purge.save()
 
@@ -61,3 +57,5 @@ def clean_url(project, server, protocolo, purge_method, delta_time, generate_new
         recalc.next_ask = int(recalc.future_ask)
         recalc.future_ask = 0
         recalc.save()
+
+    print('Fin del purge para el server:', servers)

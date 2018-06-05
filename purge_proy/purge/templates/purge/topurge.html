@@ -4,20 +4,11 @@
 {% block content %}
 
 
- <h2>URL To Purge </h2> 
+ <h2>Purge proyects</h2> 
 <div class="panel panel-primary">
     <div class="collapse navbar-collapse panel-heading" id="bs-example-navbar-collapse-1">
      
-      {% if user.is_authenticated %}
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tasks <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              
-            </ul>
-          </li>
-        </ul>
-      {% endif %}
+      
     </div>
     <div class="row">
     <div class="col-xs-12">
@@ -37,7 +28,7 @@
                     <th>Server</th>
                     <th>Protocol</th>
                     <th>Purge Method</th>
-                    <th>Generate New Cache</th>
+                    <th>Description</th>
                     <th>Exclude URL</th>
                     <th>URL Count</th>
                     <th>Next Purge</th>
@@ -55,7 +46,7 @@
                       <td>{{ group.server }}</td>
                       <td>{{ group.protocolo }}</td>
                       <td>{{ group.purge_method }}</td>
-                      <td>{{ group.generate_new_cache }}</td>
+                      <td>{{ group.description }}</td>
                       <td>{{ group.exclude_url }}</td>
                       <td>{{ group.urlcount }}</td>
                       <td>{{ group.next_ask }}</td>
@@ -63,18 +54,13 @@
                       <td>{{ group.total_asked.total_asked }}</td>
                       <td>{{ group.total_purged.total_purged }}</td>
                       <td>{{ group.reduction_percent|floatformat:2 }} %</td>
-                      
-
-                      
-                      
-                      
   	                </tr>
       		      {% endfor %}
       		      </tbody>
                 <tfooter>
                   <tr>
                       <th colspan="8">Total</th>
-                      <th colspan="4">{{ object_list|length }} &nbsp;Referers</th>
+                      <th colspan="5">{{ object_list|length }} &nbsp;Referers</th>
                   </tr>
                 </tfooter>
       		    </table>

@@ -7,11 +7,12 @@ from django.db.models import Sum
 
 class PurgeProyect(models.Model):
     referer = models.CharField(max_length=30, unique=True)
-    server = models.CharField(max_length=30, unique=False)
-    protocolo = models.CharField(max_length=10, unique=False)
-    purge_method = models.CharField(max_length=10, unique=False)
+    server = models.CharField(max_length=50, unique=False, help_text="Send purges to servers, separate by space")
+    description = models.CharField('Proyect description', max_length=200, default='')
+    protocolo = models.CharField(max_length=10, unique=False, default='http://')
+    purge_method = models.CharField(max_length=10, unique=False, default='/PURGE')
     delta_time = models.PositiveSmallIntegerField(default=0)
-    generate_new_cache = models.BooleanField()
+    # generate_new_cache = models.BooleanField()
     exclude_url = models.CharField(max_length=200, unique=False, blank=True, null=True)
 
     def urlcount(self):

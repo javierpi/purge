@@ -15,7 +15,7 @@ class ToPurge_Admin(admin.ModelAdmin):
 
 class PurgeProyect_Admin(admin.ModelAdmin):
     model = PurgeProyect
-    list_display = ('referer', 'server', 'protocolo', 'delta_time', 'urlcount')
+    list_display = ('referer', 'description', 'server', 'protocolo', 'delta_time', 'urlcount')
     list_filter = ('referer',)
 
 
