@@ -14,6 +14,6 @@ cd purge_proy
 source ./bin/activate
 
 Clonar el repositorio
-git clone http://gitlabpro-d.cepal.org/uweb/purge.git <nombre-directorio>
+git clone http://gitlabpro-d.organizacion.org/uweb/purge.git <nombre-directorio>
 pip install -r requeriments.txt
 
